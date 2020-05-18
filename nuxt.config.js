@@ -1,9 +1,6 @@
 
 module.exports = {
   mode: 'universal',
-  /*
-  ** Headers of the page
-  */
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -12,45 +9,26 @@ module.exports = {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
+      { rel:'stylesheet', href:'https://fonts.googleapis.com/css2?family=Montserrat&display=swap'},
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  /*
-  ** Customize the progress-bar color
-  */
   loading: { color: '#fff' },
-  /*
-  ** Global CSS
-  */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    '@/assets/styles'
   ],
-  /*
-  ** Plugins to load before mounting the App
-  */
   plugins: [
     '@/plugins/element-ui',
     {src: '@/plugins/socket', ssr: false}
   ],
-  /*
-  ** Nuxt.js dev-modules
-  */
   buildModules: [
   ],
-  /*
-  ** Nuxt.js modules
-  */
   modules: [
     '@nuxtjs/pwa',
   ],
-  /*
-  ** Build configuration
-  */
   build: {
     transpile: [/^element-ui/],
-    /*
-    ** You can extend webpack config here
-    */
     extend (config, ctx) {
     }
   }
