@@ -3,20 +3,25 @@
   class="room"
   @click="login"
 >
-  <slot/>
+  {{room.name}}
 </li>
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
+
 export default {
   props: {
-    id: {
+    room: {
+      type: Object,
       required: true
     }
   },
   methods: {
+    ...mapMutations(['setRoom']),
     login() {
-      this.$router.push({path: `/room/${this.id}/login`});
+      this.setRoom(this.room.name);
+      this.$router.push({path: `/room/${this.room.name}/login`});
     }
   }
 }

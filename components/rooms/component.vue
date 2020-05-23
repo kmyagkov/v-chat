@@ -4,10 +4,8 @@
         class="rooms__item"
         v-for="room of rooms"
         :key="room.id"
-        :id="room.id"
-      >
-        {{ room.name }}
-      </Room>
+        :room="room"
+      />
     </ul>
 </template>
 

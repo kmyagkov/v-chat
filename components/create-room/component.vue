@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
+
 export default {
   data() {
     return {
@@ -34,8 +36,9 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['setRoom']),
     submit() {
-      console.log(`Room ${this.roomName} created`);
+      this.setRoom(this.roomName);
       this.$router.push({path: `/room/${this.roomName}/login`});
     }
   }

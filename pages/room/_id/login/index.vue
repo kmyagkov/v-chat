@@ -12,13 +12,13 @@
     class="v-btn"
     :disabled="isLoginEntered"
   >
-      Enter chat
-    </el-button>
+    Enter chat
+  </el-button>
 </form>
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex';
+import {mapMutations, mapGetters} from 'vuex';
 
 export default {
   data() {
@@ -27,16 +27,31 @@ export default {
     }
   },
   computed: {
-    ...mapState(['room']),
+    ...mapGetters(['room']),
     isLoginEntered() {
       return !this.login;
     }
   },
   methods: {
-    ...mapMutations(['setUser']),
+    ...mapMutations(['createUser']),
+
     submit() {
-      this.setUser(this.login);
-      this.$router.push(`/room/${this.room}`);
+      const payload = {
+        user: this.login,
+        room: this.room
+      };
+
+      this.$socket.emit('userJoined', payload, (response) => {
+        if (typeof response === 'string') {
+          console.error(response)
+        } else {
+          this.createUser({
+            name: this.login,
+            id: response.userId
+          });
+          this.$router.push(`/room/${this.room}`);
+        }
+      });
     }
   }
 }

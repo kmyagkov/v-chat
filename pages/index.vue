@@ -18,6 +18,7 @@
 <script>
 import Rooms from '@/components/rooms';
 import CreateRoom from '@/components/create-room';
+import {mapState, mapMutations} from 'vuex';
 
 export default {
   components: {
@@ -25,25 +26,21 @@ export default {
     CreateRoom
   },
 
-  data() {
-    return {
-      rooms: [
-        {
-          name: 'Room 1',
-          id: 'id1'
-        },
-        {
-          name: 'Room 2',
-          id: 'id2'
-        }
-      ]
-    };
-  },
-
   computed: {
+    ...mapState(['rooms']),
     isRoomsCreated() {
       return !!this.rooms.length;
     }
+  },
+
+  methods: {
+    ...mapMutations(['setRooms'])
+  },
+
+  mounted() {
+    this.$socket.emit('init', (rooms) => {
+      this.setRooms(rooms);
+    });
   }
 }
 </script>
