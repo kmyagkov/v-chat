@@ -16,11 +16,14 @@ io.on('connection', (socket) => {
       return cb('Incorrect user data');
     }
 
-    socket.join(room);
+    socket.join(room, () => {
+      const ioRoom = io.sockets.adapter.rooms[room];
 
-    rooms.add({
-      id: socket.id,
-      name: room
+      if (ioRoom && !rooms.get(room)) {
+        rooms.add({
+          name: room
+        });
+      }
     });
 
     users.remove(socket.id);

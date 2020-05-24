@@ -7,19 +7,19 @@ class Rooms {
     this.rooms.push(room);
   }
 
-  get(id) {
-    return this.rooms.find((room) => room.id === id);
+  get(name) {
+    return this.rooms.find((room) => room.name === name);
   }
 
   getAll() {
     return this.rooms;
   }
 
-  remove(id) {
-    const room = this.get(id);
+  remove(name) {
+    const room = this.get(name);
 
     if (room) {
-      this.rooms.filter((room) => room.id !== id);
+      this.rooms.filter((room) => room.name !== room);
     }
 
     return room;
