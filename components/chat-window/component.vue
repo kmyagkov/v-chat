@@ -10,6 +10,7 @@
       :key="i"
       :message="message"
       :user="user"
+      ref="messagesList"
     />
   </transition-group>
 </div>
@@ -28,7 +29,11 @@ export default {
       type: Array
     }
   },
-  computed: mapState(['user'])
+  computed: mapState(['user']),
+
+  updated() {
+    this.$refs.messagesList[this.$refs.messagesList.length - 1].$el.scrollIntoView();
+  }
 }
 </script>
 
@@ -45,6 +50,6 @@ export default {
   padding: 16px;
   background: darken(#303133, 5%);
   border-radius: 8px;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>

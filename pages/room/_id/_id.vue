@@ -1,5 +1,5 @@
 <template>
-<section class="chat">
+<section class="chat" ref="chat">
   <div class="chat__inner">
     <transition name="slide">
       <ChatNav
@@ -9,7 +9,7 @@
       />
     </transition>
     <div class="chat__main" :class="{'collapse': isSidebar}">
-      <header class="chat__header">
+      <header class="chat__header" ref="chatHeader">
         <div class="chat__controls">
           <el-button
             @click="exit"
@@ -26,8 +26,12 @@
         </div>
         <h1 class="chat__title">{{room}}</h1>
       </header>
-      <ChatWindow class="chat__window" :messages="messages"/>
-      <footer class="chat__footer">
+      <ChatWindow
+        class="chat__window"
+        :messages="messages"
+        ref="chatWindow"
+      />
+      <footer class="chat__footer" ref="chatFooter">
         <form @submit.prevent="sendMessage" class="chat__form">
           <el-input
             type="textarea"
@@ -105,7 +109,11 @@ export default {
   },
   computed: {
     ...mapState(['user', 'messages', 'users']),
-    ...mapGetters(['room'])
+    ...mapGetters(['room']),
+  },
+  mounted() {
+    const {chat, chatHeader, chatFooter, chatWindow} = this.$refs;
+    chatWindow.$el.style.height = `${chat.offsetHeight - chatHeader.offsetHeight - chatFooter.offsetHeight}px`;
   }
 }
 </script>
