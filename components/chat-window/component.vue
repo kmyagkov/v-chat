@@ -6,6 +6,7 @@
     tag="div"
   >
     <Message
+      class="chat-window__message"
       v-for="(message,i) of messages"
       :key="i"
       :message="message"
@@ -51,5 +52,14 @@ export default {
   background: darken(#303133, 5%);
   border-radius: 8px;
   overflow-y: scroll;
+}
+
+.chat-window__message {
+  min-width: 20%;
+  max-width: 80%;
+
+  @media(min-width: 768px) {
+    max-width: 65%;
+  }
 }
 </style>

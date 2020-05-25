@@ -41,8 +41,6 @@ export default {
 
 <style lang="scss">
 .chat-message {
-  min-width: 20%;
-  max-width: 40%;
   padding: 16px;
   margin-bottom: 16px;
   color: white;
@@ -66,6 +64,7 @@ export default {
 
 .chat-message__text {
   margin: 0;
+  word-break: break-all;
 }
 
 .chat-message__author {

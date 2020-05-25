@@ -1,13 +1,13 @@
 <template>
 <section class="chat" ref="chat">
   <div class="chat__inner">
-    <transition name="slide">
-      <ChatNav
-        class="chat__aside"
-        v-if="isSidebar"
-        :users="users"
-      />
-    </transition>
+<!--    <transition name="slide">-->
+<!--      <ChatNav-->
+<!--        class="chat__aside"-->
+<!--        v-if="isSidebar"-->
+<!--        :users="users"-->
+<!--      />-->
+<!--    </transition>-->
     <div class="chat__main" :class="{'collapse': isSidebar}">
       <header class="chat__header" ref="chatHeader">
         <div class="chat__controls">
@@ -17,12 +17,12 @@
             icon="el-icon-back"
             circle
           />
-          <el-button
-            @click="toggleSidebar"
-            type="primary"
-            icon="el-icon-menu"
-            circle
-          />
+<!--          <el-button-->
+<!--            @click="toggleSidebar"-->
+<!--            type="primary"-->
+<!--            icon="el-icon-menu"-->
+<!--            circle-->
+<!--          />-->
         </div>
         <h1 class="chat__title">{{room}}</h1>
       </header>
@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-      isSidebar: true,
+      isSidebar: false,
       messageText: ''
     }
   },

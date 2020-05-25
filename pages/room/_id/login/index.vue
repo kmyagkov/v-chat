@@ -1,6 +1,6 @@
 <template>
 <form class="login" @submit.prevent="submit">
-  <h1>Type your nickname:</h1>
+  <h1 class="login__title">Type your nickname:</h1>
   <el-input
     class="login__input"
     placeholder="Your nickname"
@@ -61,6 +61,11 @@ export default {
 .login {
   display: flex;
   flex-direction: column;
+}
+
+.login__title {
+  font-size: 24px;
+  line-height: 32px;
 }
 
 .login__input {
