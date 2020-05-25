@@ -3,8 +3,11 @@
     <h1 class="welcome__title">
       Welcome to V-Chat
     </h1>
+    <div class="welcome__spinner" v-if="loading">
+      <Spinner/>
+    </div>
     <div
-      v-if="isRoomsCreated"
+      v-else-if="isRoomsCreated"
       class="welcome__rooms"
     >
       <h3>Choose the room:</h3>
@@ -18,29 +21,36 @@
 <script>
 import Rooms from '@/components/rooms';
 import CreateRoom from '@/components/create-room';
+import Spinner from '@/components/spinner';
 import {mapState, mapMutations} from 'vuex';
 
 export default {
   components: {
     Rooms,
-    CreateRoom
+    CreateRoom,
+    Spinner
   },
 
   computed: {
-    ...mapState(['rooms']),
+    ...mapState(['rooms', 'loading']),
     isRoomsCreated() {
       return !!this.rooms.length;
     }
   },
 
   methods: {
-    ...mapMutations(['setRooms'])
+    ...mapMutations(['setRooms', 'setLoading'])
   },
 
-  mounted() {
-    this.$socket.emit('init', (rooms) => {
-      this.setRooms(rooms);
-    });
+  async mounted() {
+    try {
+      await this.$socket.emit('init', (rooms) => {
+        this.setRooms(rooms);
+        this.setLoading();
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 </script>
@@ -71,5 +81,12 @@ export default {
 .welcome__tip {
   margin: 0;
   text-align: center;
+}
+
+.welcome__spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 48px;
 }
 </style>

@@ -1,14 +1,11 @@
-import ro from 'element-ui/src/locale/lang/ro';
-
 export const state = () => ({
   user: null,
   room: null,
   messages: [],
   rooms: [],
-  users: []
+  users: [],
+  loading: true
 });
-
-export const actions = {};
 
 export const mutations = {
   createUser(state, user) {
@@ -27,6 +24,10 @@ export const mutations = {
 
   setRooms(state, rooms) {
     state.rooms = rooms;
+  },
+
+  setLoading(state) {
+    state.loading = false;
   },
 
   SOCKET_newMessage(state, message) {
